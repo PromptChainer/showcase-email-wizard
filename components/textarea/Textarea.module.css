@@ -1,0 +1,24 @@
+.holder {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+}
+
+.textarea {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+
+  border: 1px solid #cbdcef;
+  background-color: #eef3f9;
+  color: #244265;
+}
+
+.textarea::placeholder {
+  color: #94acc7;
+}
+
+.label {
+  color: #244265;
+  margin-bottom: 5px;
+}
