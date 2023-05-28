@@ -92,6 +92,8 @@ function Inputs({
           "You're a wizard, Harry!"
         )}
       </button>
+      <a href="https://www.youtube.com/watch?v=IqUN4YdQgVQ" target="_blank" rel="noopener noreferrer" className={styles.wizardLink}>I'm a what?</a>
+      {isLoading && <Spinner />}
     </>
   );
 }
@@ -110,6 +112,17 @@ export default function Home() {
   const [notes, setNotes] = useState("");
 
   const handleButtonClick = async () => {
+    if (
+      senderName === "" ||
+      senderEmail === "" ||
+      companyName === "" ||
+      mailContent === "" ||
+      responseLength === "" ||
+      tone === "" ||
+      notes === ""
+    ) {
+      return;
+    }
     setIsLoading(true);
 
     const inputsData = {
@@ -227,6 +240,27 @@ export default function Home() {
           ) : (
             <ResponseComponent response={apiResponse} />
           )}
+        </div>
+
+
+        <div className={styles.blogPostLink}>
+          <a
+            href="https://github.com/PromptChainer/showcase-article-gen"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.githubLink}
+          >
+            Repo on Github🍴
+          </a>
+          <a
+            href="https://blog.promptchainer.io/p/use-case-custom-built-article-writer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.githubLink}
+          >
+            Wanna know how we activated this chain of prompts in a matter of
+            minutes?
+          </a>
         </div>
       </div>
     </main>
