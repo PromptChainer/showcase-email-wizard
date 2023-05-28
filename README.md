@@ -1,34 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ContentGen by PromptChainer
 
-## Getting Started
+E-mail Wizard is a React application built using Next.js that uses [PromptChainer](https://promptchainer.io/)'s API to generate an e-mail response based on user input. 
+This powerful tool is perfect for generating e-mails using AI and you can create it in a matter of minutes!
 
-First, run the development server:
+Read more in our [Blog Post](https://blog.promptchainer.io/p/use-case-custom-built-email-wizard).
 
+## 🌟 Features
+
+- React.js & Next.js application.
+- Integration with the PromptChain API.
+- Dynamic rendering of the generated output.
+- Adaptive textarea input for keywords.
+- Loading state with randomized sentences.
+
+## 🚀 Getting Started
+
+To get a local copy up and running follow these simple steps.
+
+### Prerequisites
+
+- Node.js installed (>= 14.x)
+- NPM or Yarn as package manager
+- An API key from [PromptChain](https://promptchainer.io/) - in this Beta version it's on us :) Don't worry about it
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/PromptChainer/showcase-email-wizard
+```
+Install NPM packages:
+```bash
+npm install
+```
+Or if you are using Yarn:
+```bash
+yarn
+```
+Copy the .env.example file and create a .env file in the root of the project. Add your PromptChain API key to the .env file:
+```bash
+NEXT_PUBLIC_API_KEY=your_api_key_here
+```
+If you want to add Google Analytics, add your measurment ID to the .env file:
+```bash
+NEXT_PUBLIC_GA_TRACKING_ID=your_google_analytics_measurment_id_here
+```
+Start the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
+Or if you are using Yarn:
+```bash
+yarn dev
+```
+Open http://localhost:3000 with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📚 Usage
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+After you've started the application, you will find four text inputs:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Subject**: The main topic of the article.
+2. **Keywords**: Important words that should be included in the article.
+3. **Target Audience**: The primary readers or viewers that the article will be targeting.
+4. **Personal Notes**: Any additional instructions or guidelines for the content.
 
-## Learn More
+After filling in the desired fields, click on the 'Generate' button and the marvelous content will be created and displayed on the right side of the application.
 
-To learn more about Next.js, take a look at the following resources:
+## 🔖 Components
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The React components written:
+- **Textarea**: This is a dynamic textarea component. It resizes based on input, handles placeholder, value, onChange events, and provides optional rows and columns properties.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 💼 Contributing
 
-## Deploy on Vercel
+Pull requests, suggestions and improvemnts are welcome!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Distributed under the MIT License. See LICENSE for more information.
+
+## 📫 Contact
+
+Email: support@promptchainer.io
