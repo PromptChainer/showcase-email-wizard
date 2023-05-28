@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import Input from "@/components/input/input.js";
 import Textarea from "@/components/textarea/textarea";
 import Loader from "@/components/loader/loader";
+import logo from "../app/logo.svg";
+import Link from "next/link";
+import Image from "next/image";
 
 function Inputs({
   handleButtonClick,
@@ -25,74 +28,109 @@ function Inputs({
 }) {
   const onChange = (setter) => (event) => setter(event.target.value);
 
+  const loaderSentences = [
+    "Orit rules this land together with Aryeh the grand shepherd ❤️",
+    "Making funny faces to AI to stop it from world domination...",
+    "Making the AI powering hamsters sweat real good...",
+    "Load it and they will come.",
+    "Having a philosophical chat with AI about right and wrong...",
+    "Computing the secret to life. Or love. Or both.",
+    "Never steal. The government hates competition...",
+    "Optimism is a lack of information...",
+    "Save water and shower together",
+    "I’ve got a problem for your solution...",
+    "Where there’s a will, there’s a relative.",
+    "git happens",
+  ];
+
   return (
     <>
-      <div style={{ opacity: isLoading ? 0.5 : 1 }}>
-        <div className={styles.inputholder}>
-          <Input
-            placeholder="Add Sender name"
-            value={senderName}
-            onChange={onChange(setSenderName)}
-            label="Sender name"
-          />
-          <Input
-            placeholder="Add Sender eMail"
-            value={senderEmail}
-            onChange={onChange(setSenderEmail)}
-            label="Sender eMail"
-          />
-          <Input
-            placeholder="Add Company name"
-            value={companyName}
-            onChange={onChange(setCompanyName)}
-            label="Company name"
-          />
-        </div>
+      {!isLoading && (
+        <>
+          <div style={{ opacity: isLoading ? 0.5 : 1 }}>
+            <div className={styles.inputholder}>
+              <Input
+                placeholder="Add Sender name"
+                value={senderName}
+                onChange={onChange(setSenderName)}
+                label="Sender name"
+              />
+              <Input
+                placeholder="Add Sender eMail"
+                value={senderEmail}
+                onChange={onChange(setSenderEmail)}
+                label="Sender eMail"
+              />
+              <Input
+                placeholder="Add Company name"
+                value={companyName}
+                onChange={onChange(setCompanyName)}
+                label="Company name"
+              />
+            </div>
 
-        <Textarea
-          placeholder="Mail content"
-          value={mailContent}
-          onChange={onChange(setMailContent)}
-          label="Main content"
-        />
+            <Textarea
+              placeholder="Mail content"
+              value={mailContent}
+              onChange={onChange(setMailContent)}
+              label="Main content"
+            />
 
-        <div className={`${styles.inputholder} ${styles.inputholderbottom}`}>
-          <Input
-            placeholder="Response length"
-            value={responseLength}
-            onChange={onChange(setResponseLength)}
-            label="Response Length"
-          />
-          <Input
-            placeholder="Tone"
-            value={tone}
-            onChange={onChange(setTone)}
-            label="Tone"
-          />
-        </div>
+            <div
+              className={`${styles.inputholder} ${styles.inputholderbottom}`}
+            >
+              <Input
+                placeholder="Response length"
+                value={responseLength}
+                onChange={onChange(setResponseLength)}
+                label="Response Length"
+              />
+              <Input
+                placeholder="Tone"
+                value={tone}
+                onChange={onChange(setTone)}
+                label="Tone"
+              />
+            </div>
 
-        <Textarea
-          placeholder="Notes"
-          value={notes}
-          onChange={onChange(setNotes)}
-          label="Notes"
-          rows={2}
-        />
-      </div>
-      <button
-        className={styles.button}
-        onClick={handleButtonClick}
-        disabled={isLoading}
-      >
-        {isLoading ? (
-          <div className={styles.loaderHolder}>
-            <Loader /> <p>Much response coming your way...</p>
+            <Textarea
+              placeholder="Notes"
+              value={notes}
+              onChange={onChange(setNotes)}
+              label="Notes"
+              rows={2}
+            />
           </div>
-        ) : (
-          "You're a wizard, Harry!"
-        )}
-      </button>
-      <a href="https://www.youtube.com/watch?v=IqUN4YdQgVQ" target="_blank" rel="noopener noreferrer" className={styles.wizardLink}>I'm a what?</a>
+          <button
+            className={styles.button}
+            onClick={handleButtonClick}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className={styles.loaderHolder}>
+                <Loader /> <p>Much response coming your way...</p>
+              </div>
+            ) : (
+              "You're a wizard, Harry!"
+            )}
+          </button>
+          <a
+            href="https://www.youtube.com/watch?v=IqUN4YdQgVQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.wizardLink}
+          >
+            I'm a what?
+          </a>
+        </>
+      )}
+
+      {isLoading && (
+        <div className={styles.loadingHolder}>
+          <Loader />
+          <p>{loaderSentences[0]}</p>
+        </div>
+      )}
     </>
   );
 }
@@ -178,7 +216,15 @@ export default function Home() {
 
   function ResponseComponent({ response }) {
     return (
-      <div>
+      <div
+        style={
+          !response
+            ? {
+                height: "560px",
+              }
+            : {}
+        }
+      >
         {response &&
           response.map((item, index) => (
             <div key={index} style={{ marginBottom: "20px" }}>
@@ -196,11 +242,22 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.mainholder}>
+      <div
+        className={styles.mainholder}
+        style={
+          isLoading
+            ? {
+                maxHeight: "630px",
+                height: "100%",
+              }
+            : {}
+        }
+      >
         <div className={styles.nav}>
           <h1>
             Email<span>Wizard</span>
           </h1>
+
           <div className={styles.tabs}>
             <p
               className={activeTab === 0 ? styles.activeTab : ""}
@@ -215,6 +272,12 @@ export default function Home() {
               Wizard&apos;s Reponse
             </p>
           </div>
+
+          <Link target="_blank" href="https://promptchainer.io/">
+            <div className={styles.poweredBy}>
+              <p>Powered by:</p> <Image alt="logo" src={logo} height={20} />
+            </div>
+          </Link>
         </div>
         <div className={styles.content}>
           {activeTab === 0 ? (
@@ -240,7 +303,6 @@ export default function Home() {
             <ResponseComponent response={apiResponse} />
           )}
         </div>
-
 
         <div className={styles.blogPostLink}>
           <a

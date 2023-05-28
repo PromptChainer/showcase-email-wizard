@@ -5,19 +5,19 @@ function Loader() {
   return (
     <svg
       className={styles.spinner}
-      width="26px"
-      height="26px"
-      viewBox="0 0 27 27"
+      width="66px"
+      height="66px"
+      viewBox="0 0 67 67"
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle
         className={styles.path}
         fill="none"
-        stroke-width="2"
+        stroke-width="4"
         stroke-linecap="round"
-        cx="13"
-        cy="13"
-        r="10"
+        cx="33"
+        cy="33"
+        r="30"
       ></circle>
     </svg>
   );

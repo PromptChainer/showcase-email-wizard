@@ -31,29 +31,29 @@
 
 @-webkit-keyframes colors {
   0% {
-    stroke: white;
+    stroke: #244265;
   }
 
   50% {
-    stroke: transparent;
+    stroke: #94acc7;
   }
 
   100% {
-    stroke: white;
+    stroke: #244265;
   }
 }
 
 @keyframes colors {
   0% {
-    stroke: white;
+    stroke: #244265;
   }
 
   50% {
-    stroke: transparent;
+    stroke: #94acc7;
   }
 
   100% {
-    stroke: white;
+    stroke: #244265;
   }
 }
 @-webkit-keyframes dash {
