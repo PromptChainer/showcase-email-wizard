@@ -3,10 +3,7 @@ import styles from "./page.module.css";
 import React, { useState } from "react";
 import Input from "@/components/input/input.js";
 import Textarea from "@/components/textarea/textarea";
-
-function Spinner() {
-  return <img src="https://gfycat.com/angelicblankafricangroundhornbill" alt="Loading..." />;
-}
+import Loader from "@/components/loader/loader";
 
 function Inputs({
   handleButtonClick,
@@ -30,58 +27,71 @@ function Inputs({
 
   return (
     <>
-      <div className={styles.inputholder}>
-        <Input
-          placeholder="Add Sender name"
-          value={senderName}
-          onChange={onChange(setSenderName)}
-          label="Sender name"
-        />
-        <Input
-          placeholder="Add Sender eMail"
-          value={senderEmail}
-          onChange={onChange(setSenderEmail)}
-          label="Sender eMail"
-        />
-        <Input
-          placeholder="Add Company name"
-          value={companyName}
-          onChange={onChange(setCompanyName)}
-          label="Company name"
-        />
-      </div>
+      <div style={{ opacity: isLoading ? 0.5 : 1 }}>
+        <div className={styles.inputholder}>
+          <Input
+            placeholder="Add Sender name"
+            value={senderName}
+            onChange={onChange(setSenderName)}
+            label="Sender name"
+          />
+          <Input
+            placeholder="Add Sender eMail"
+            value={senderEmail}
+            onChange={onChange(setSenderEmail)}
+            label="Sender eMail"
+          />
+          <Input
+            placeholder="Add Company name"
+            value={companyName}
+            onChange={onChange(setCompanyName)}
+            label="Company name"
+          />
+        </div>
 
-      <Textarea
-        placeholder="Mail content"
-        value={mailContent}
-        onChange={onChange(setMailContent)}
-        label="Main content"
-      />
+        <Textarea
+          placeholder="Mail content"
+          value={mailContent}
+          onChange={onChange(setMailContent)}
+          label="Main content"
+        />
 
-      <div className={`${styles.inputholder} ${styles.inputholderbottom}`}>
-        <Input
-          placeholder="Response length"
-          value={responseLength}
-          onChange={onChange(setResponseLength)}
-          label="Response Length"
-        />
-        <Input
-          placeholder="Tone"
-          value={tone}
-          onChange={onChange(setTone)}
-          label="Tone"
-        />
-        <Input
+        <div className={`${styles.inputholder} ${styles.inputholderbottom}`}>
+          <Input
+            placeholder="Response length"
+            value={responseLength}
+            onChange={onChange(setResponseLength)}
+            label="Response Length"
+          />
+          <Input
+            placeholder="Tone"
+            value={tone}
+            onChange={onChange(setTone)}
+            label="Tone"
+          />
+        </div>
+
+        <Textarea
           placeholder="Notes"
           value={notes}
           onChange={onChange(setNotes)}
           label="Notes"
+          rows={2}
         />
       </div>
-      <button className={styles.button} onClick={handleButtonClick} disabled={isLoading}>
-        {isLoading ? "Much response coming your way..." : "You're a wizard, Harry!"}
+      <button
+        className={styles.button}
+        onClick={handleButtonClick}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <div className={styles.loaderHolder}>
+            <Loader /> <p>Much response coming your way...</p>
+          </div>
+        ) : (
+          "You're a wizard, Harry!"
+        )}
       </button>
-      {isLoading && <Spinner />}
     </>
   );
 }
@@ -156,14 +166,14 @@ export default function Home() {
 
   function ResponseComponent({ response }) {
     return (
-      <div
-        style={{ color: "black", backgroundColor: "white", padding: "20px" }}
-      >
+      <div>
         {response &&
           response.map((item, index) => (
             <div key={index} style={{ marginBottom: "20px" }}>
-              <h2 style={{ marginBottom: "10px" }}>{item.name}</h2>
-              <p style={{ textIndent: "20px", textAlign: "justify" }}>
+              <h2 style={{ marginBottom: "10px", color: "#244265" }}>
+                {item.name}
+              </h2>
+              <p style={{ color: "#738ca8", lineHeight: "21px" }}>
                 {item.output}
               </p>
             </div>

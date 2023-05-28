@@ -12,6 +12,13 @@
   box-shadow: #e2eaf4 0px 5px 60px;
   border-radius: 10px;
   overflow: hidden;
+  max-width: 750px;
+}
+
+.loaderHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav {
@@ -71,6 +78,7 @@
 .inputholderbottom {
   margin-bottom: unset;
   border: unset;
+  grid-template-columns: 1fr 1fr;
 }
 
 .button {
