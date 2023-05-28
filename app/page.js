@@ -93,7 +93,6 @@ function Inputs({
         )}
       </button>
       <a href="https://www.youtube.com/watch?v=IqUN4YdQgVQ" target="_blank" rel="noopener noreferrer" className={styles.wizardLink}>I'm a what?</a>
-      {isLoading && <Spinner />}
     </>
   );
 }
