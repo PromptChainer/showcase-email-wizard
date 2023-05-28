@@ -173,3 +173,19 @@
   color: white;
   margin-right: 5px;
 }
+
+.fade-in-word {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  animation-duration: 350ms;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
