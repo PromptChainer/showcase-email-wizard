@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import styles from "./Textarea.module.css";
 
 function Textarea({ placeholder, value, onChange, rows = 5, label }) {

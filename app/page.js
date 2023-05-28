@@ -1,104 +1,176 @@
 "use client";
 import styles from "./page.module.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import Input from "@/components/input/input.js";
 import Textarea from "@/components/textarea/textarea";
 
-function Inputs() {
+function Spinner() {
+  return <img src="https://gfycat.com/angelicblankafricangroundhornbill" alt="Loading..." />;
+}
+
+function Inputs({
+  handleButtonClick,
+  isLoading,
+  senderName,
+  setSenderName,
+  senderEmail,
+  setSenderEmail,
+  companyName,
+  setCompanyName,
+  mailContent,
+  setMailContent,
+  responseLength,
+  setResponseLength,
+  tone,
+  setTone,
+  notes,
+  setNotes,
+}) {
+  const onChange = (setter) => (event) => setter(event.target.value);
+
   return (
     <>
       <div className={styles.inputholder}>
         <Input
           placeholder="Add Sender name"
-          onClick={() => console.log("hi")}
-          value={""}
+          value={senderName}
+          onChange={onChange(setSenderName)}
           label="Sender name"
         />
         <Input
           placeholder="Add Sender eMail"
-          onClick={() => console.log("hi")}
-          value={""}
+          value={senderEmail}
+          onChange={onChange(setSenderEmail)}
           label="Sender eMail"
         />
         <Input
           placeholder="Add Company name"
-          onClick={() => console.log("hi")}
-          value={""}
+          value={companyName}
+          onChange={onChange(setCompanyName)}
           label="Company name"
         />
       </div>
 
       <Textarea
         placeholder="Mail content"
-        onClick={() => console.log("hi")}
-        value={""}
+        value={mailContent}
+        onChange={onChange(setMailContent)}
         label="Main content"
       />
 
       <div className={`${styles.inputholder} ${styles.inputholderbottom}`}>
         <Input
           placeholder="Response length"
-          onClick={() => console.log("hi")}
-          value={""}
-          label="Response length"
+          value={responseLength}
+          onChange={onChange(setResponseLength)}
+          label="Response Length"
         />
         <Input
           placeholder="Tone"
-          onClick={() => console.log("hi")}
-          value={""}
+          value={tone}
+          onChange={onChange(setTone)}
           label="Tone"
         />
         <Input
           placeholder="Notes"
-          onClick={() => console.log("hi")}
-          value={""}
+          value={notes}
+          onChange={onChange(setNotes)}
           label="Notes"
         />
       </div>
-      <button className={styles.button}>Generate responce</button>
+      <button className={styles.button} onClick={handleButtonClick} disabled={isLoading}>
+        {isLoading ? "Much response coming your way..." : "You're a wizard, Harry!"}
+      </button>
+      {isLoading && <Spinner />}
     </>
-  );
-}
-
-function Responce() {
-  return (
-    <div className={styles.responce}>
-      <p className={styles.title}>Mail points:</p>
-      <p className={styles.text}>
-        In publishing and graphic design, Lorem ipsum is a placeholder text
-        commonly used to demonstrate the visual form of a document or a typeface
-        without relying on meaningful content.
-      </p>
-      <p className={styles.title} style={{ marginTop: 20 }}>
-        Responce:
-      </p>
-      <p className={styles.text}>
-        In publishing and graphic design, Lorem ipsum is a placeholder text
-        commonly used to demonstrate the visual form of a document or a typeface
-        without relying on meaningful content. Lorem ipsum may be used as a
-        placeholder before final copy is available. It is also used to
-        temporarily replace text in a process called greeking, which allows
-        designers to consider the form of a webpage or publication, without the
-        meaning of the text influencing the design. Lorem ipsum is typically a
-        corrupted version of De finibus bonorum et malorum, a 1st-century BC
-        text by the Roman statesman and philosopher Cicero, with words altered,
-        added, and removed to make it nonsensical and improper Latin. Versions
-        of the Lorem ipsum text have been used in typesetting at least since the
-        1960s, when it was popularized by advertisements for Letraset transfer
-        sheets.[1] Lorem ipsum was introduced to the digital world in the
-        mid-1980s, when Aldus employed it in graphic and word-processing
-        templates for its desktop publishing program PageMaker. Other popular
-        word processors, including Pages and Microsoft Word, have since adopted
-        Lorem ipsum,[2] as have many LaTeX packages,[3][4][5] web content
-        managers such as Joomla! and WordPress, and CSS libraries such as
-        Semantic UI.
-      </p>
-    </div>
   );
 }
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState(0);
+  const [apiResponse, setApiResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [senderName, setSenderName] = useState("");
+  const [senderEmail, setSenderEmail] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [mailContent, setMailContent] = useState("");
+  const [responseLength, setResponseLength] = useState("");
+  const [tone, setTone] = useState("");
+  const [notes, setNotes] = useState("");
+
+  const handleButtonClick = async () => {
+    setIsLoading(true);
+
+    const inputsData = {
+      senderName,
+      senderEmail,
+      companyName,
+      mailContent,
+      responseLength,
+      tone,
+      notes,
+    };
+    await sendInputsToAPI(inputsData);
+  };
+
+  const sendInputsToAPI = async (inputsData) => {
+    try {
+      const formattedInputsData = {
+        variables: {
+          ResponseLength: inputsData.responseLength,
+          mail: inputsData.mailContent,
+          SenderName: inputsData.senderName,
+          SenderEmail: inputsData.senderEmail,
+          CompanyName: inputsData.companyName,
+          Tone: inputsData.tone,
+          notes: inputsData.notes,
+        },
+      };
+
+      const response = await fetch(
+        "https://prod.api.promptchainer.io/api/flows/run/clhez0wo90005s10glie7tadf",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
+          body: JSON.stringify(formattedInputsData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error. Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setApiResponse(data);
+      setActiveTab(1);
+    } catch (error) {
+      console.error("Error sending data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  function ResponseComponent({ response }) {
+    return (
+      <div
+        style={{ color: "black", backgroundColor: "white", padding: "20px" }}
+      >
+        {response &&
+          response.map((item, index) => (
+            <div key={index} style={{ marginBottom: "20px" }}>
+              <h2 style={{ marginBottom: "10px" }}>{item.name}</h2>
+              <p style={{ textIndent: "20px", textAlign: "justify" }}>
+                {item.output}
+              </p>
+            </div>
+          ))}
+      </div>
+    );
+  }
 
   return (
     <main className={styles.main}>
@@ -112,18 +184,39 @@ export default function Home() {
               className={activeTab === 0 ? styles.activeTab : ""}
               onClick={() => setActiveTab(0)}
             >
-              Inputs
+              Insert Parameters
             </p>
             <p
               className={activeTab === 1 ? styles.activeTab : ""}
               onClick={() => setActiveTab(1)}
             >
-              Responce
+              Wizard&apos;s Reponse
             </p>
           </div>
         </div>
         <div className={styles.content}>
-          {activeTab === 0 ? <Inputs /> : <Responce />}
+          {activeTab === 0 ? (
+            <Inputs
+              handleButtonClick={handleButtonClick}
+              isLoading={isLoading}
+              senderName={senderName}
+              setSenderName={setSenderName}
+              senderEmail={senderEmail}
+              setSenderEmail={setSenderEmail}
+              companyName={companyName}
+              setCompanyName={setCompanyName}
+              mailContent={mailContent}
+              setMailContent={setMailContent}
+              responseLength={responseLength}
+              setResponseLength={setResponseLength}
+              tone={tone}
+              setTone={setTone}
+              notes={notes}
+              setNotes={setNotes}
+            />
+          ) : (
+            <ResponseComponent response={apiResponse} />
+          )}
         </div>
       </div>
     </main>
