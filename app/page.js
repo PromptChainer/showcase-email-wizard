@@ -112,27 +112,30 @@ function Inputs({
               className={`${styles.inputholder} ${styles.inputholderbottom}`}
             >
               <label for="tone ">Tone *</label>
-              <select
-                id="tone"
-                name="tone"
-                onChange={onChange(setTone)}
-                value={tone}
-              >
-                <option value="Formal">Formal</option>
-                <option value="Informal">Informal</option>
-                <option value="Friendly">Friendly</option>
-                <option value="Serious">Serious</option>
-                <option value="Humorous">Humorous</option>
-                <option value="Sarcastic">Sarcastic</option>
-                <option value="Optimistic">Optimistic</option>
-                <option value="Pessimistic">Pessimistic</option>
-                <option value="Confident">Confident</option>
-                <option value="Excited">Excited</option>
-                <option value="Polite">Polite</option>
-                <option value="Angry">Angry</option>
-                <option value="Sad">Sad</option>
-                <option value="Neutral">Neutral</option>
-              </select>
+              <div className={styles.selectHolder}>
+                <select
+                  id="tone"
+                  name="tone"
+                  onChange={onChange(setTone)}
+                  value={tone}
+                  className={styles.select}
+                >
+                  <option value="Formal">Formal</option>
+                  <option value="Informal">Informal</option>
+                  <option value="Friendly">Friendly</option>
+                  <option value="Serious">Serious</option>
+                  <option value="Humorous">Humorous</option>
+                  <option value="Sarcastic">Sarcastic</option>
+                  <option value="Optimistic">Optimistic</option>
+                  <option value="Pessimistic">Pessimistic</option>
+                  <option value="Confident">Confident</option>
+                  <option value="Excited">Excited</option>
+                  <option value="Polite">Polite</option>
+                  <option value="Angry">Angry</option>
+                  <option value="Sad">Sad</option>
+                  <option value="Neutral">Neutral</option>
+                </select>
+              </div>
             </div>
 
             <Textarea
@@ -234,16 +237,16 @@ export default function Home() {
   const [tone, setTone] = useState("");
   const [notes, setNotes] = useState("");
 
-    // // Dev use only
-    // const [senderName, setSenderName] = useState("John Smith");
-    // const [companyName, setCompanyName] = useState("PromptChainer");
-    // const [mailContent, setMailContent] = useState(
-    //   "Hey, I was just wondering if you could help me understand the difference between a turtle and a tortoise? Also, can PromptChainer help me improve my golf swing? Cheers!"
-    // );
-    // const [tone, setTone] = useState("Friendly");
-    // const [notes, setNotes] = useState(
-    //   "The user is new to PromptChainer and might need a simple step-by-step explanation."
-    // );
+  // // Dev use only
+  // const [senderName, setSenderName] = useState("John Smith");
+  // const [companyName, setCompanyName] = useState("PromptChainer");
+  // const [mailContent, setMailContent] = useState(
+  //   "Hey, I was just wondering if you could help me understand the difference between a turtle and a tortoise? Also, can PromptChainer help me improve my golf swing? Cheers!"
+  // );
+  // const [tone, setTone] = useState("Friendly");
+  // const [notes, setNotes] = useState(
+  //   "The user is new to PromptChainer and might need a simple step-by-step explanation."
+  // );
 
   const [randomSentence, setRandomSentence] = useState(
     loaderSentences[Math.floor(Math.random() * loaderSentences.length)]
@@ -313,11 +316,12 @@ export default function Home() {
   function ResponseComponent({ response }) {
     if (!response) {
       return (
-          <div style={{ color: "black" }}>
-              Whatchuwant? No inputs but you expect response. That&apos;s not how life works.
-          </div>
+        <div style={{ color: "black" }}>
+          Whatchuwant? No inputs but you expect response. That&apos;s not how
+          life works.
+        </div>
       );
-  }
+    }
 
     const filteredResponse = response.filter(
       (item) => item.name !== "FailedReplyInsight"
