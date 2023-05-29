@@ -1,4 +1,4 @@
-# ContentGen by PromptChainer
+# E-mail Wizard by PromptChainer
 
 E-mail Wizard is a React application built using Next.js that uses [PromptChainer](https://promptchainer.io/)'s API to generate an e-mail response based on user input. 
 This powerful tool is perfect for generating e-mails using AI and you can create it in a matter of minutes!
@@ -54,6 +54,12 @@ Or if you are using Yarn:
 yarn dev
 ```
 Open http://localhost:3000 with your browser to see the result.
+
+After creating a flow of your own in [PromptChainer](https://promptchainer.io/), modify in app -> page.js the following API:
+```bash
+"https://prod.api.promptchainer.io/api/flows/run/clhez0wo90005s10glie7tadf"
+```
+to your own link of flow in Dashboard.
 
 ## 📚 Usage
 

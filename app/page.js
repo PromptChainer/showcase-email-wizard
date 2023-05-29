@@ -8,7 +8,7 @@ import logo from "../app/logo.svg";
 import Link from "next/link";
 import Image from "next/image";
 
-const LoaderComponent = ({isLoadingEffect, setIsLoadingEffect}) => {
+const LoaderComponent = ({ isLoadingEffect, setIsLoadingEffect }) => {
   const [currentSentenceIdx, setCurrentSentenceIdx] = useState(
     Math.floor(Math.random() * loaderSentences.length)
   );
@@ -70,14 +70,10 @@ function Inputs({
   setIsLoadingEffect,
   senderName,
   setSenderName,
-  senderEmail,
-  setSenderEmail,
   companyName,
   setCompanyName,
   mailContent,
   setMailContent,
-  responseLength,
-  setResponseLength,
   tone,
   setTone,
   notes,
@@ -98,12 +94,6 @@ function Inputs({
                 label="Sender name"
               />
               <Input
-                placeholder="Add Sender eMail"
-                value={senderEmail}
-                onChange={onChange(setSenderEmail)}
-                label="Sender eMail"
-              />
-              <Input
                 placeholder="Add Company name"
                 value={companyName}
                 onChange={onChange(setCompanyName)}
@@ -121,22 +111,32 @@ function Inputs({
             <div
               className={`${styles.inputholder} ${styles.inputholderbottom}`}
             >
-              <Input
-                placeholder="Response length"
-                value={responseLength}
-                onChange={onChange(setResponseLength)}
-                label="Response Length"
-              />
-              <Input
-                placeholder="Tone"
-                value={tone}
+              <label for="tone">Tone</label>
+              <select
+                id="tone"
+                name="tone"
                 onChange={onChange(setTone)}
-                label="Tone"
-              />
+                value={tone}
+              >
+                <option value="Formal">Formal</option>
+                <option value="Informal">Informal</option>
+                <option value="Friendly">Friendly</option>
+                <option value="Serious">Serious</option>
+                <option value="Humorous">Humorous</option>
+                <option value="Sarcastic">Sarcastic</option>
+                <option value="Optimistic">Optimistic</option>
+                <option value="Pessimistic">Pessimistic</option>
+                <option value="Confident">Confident</option>
+                <option value="Excited">Excited</option>
+                <option value="Polite">Polite</option>
+                <option value="Angry">Angry</option>
+                <option value="Sad">Sad</option>
+                <option value="Neutral">Neutral</option>
+              </select>
             </div>
 
             <Textarea
-              placeholder="Notes"
+              placeholder="Anything you'd like the sexy AI to focus on?"
               value={notes}
               onChange={onChange(setNotes)}
               label="Notes"
@@ -162,14 +162,17 @@ function Inputs({
             rel="noopener noreferrer"
             className={styles.wizardLink}
           >
-            I&apos;m a what?
+            {"[I'm a what? 🧙]"}
           </a>
         </>
       )}
 
       {isLoading && (
         <div className={styles.loadingHolder}>
-    <LoaderComponent isLoadingEffect={isLoadingEffect} setIsLoadingEffect={setIsLoadingEffect} />
+          <LoaderComponent
+            isLoadingEffect={isLoadingEffect}
+            setIsLoadingEffect={setIsLoadingEffect}
+          />
         </div>
       )}
     </>
@@ -225,25 +228,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEffect, setIsLoadingEffect] = useState(true);
 
-  // const [senderName, setSenderName] = useState("");
-  // const [senderEmail, setSenderEmail] = useState("");
-  // const [companyName, setCompanyName] = useState("");
-  // const [mailContent, setMailContent] = useState("");
-  // const [responseLength, setResponseLength] = useState("");
-  // const [tone, setTone] = useState("");
-  // const [notes, setNotes] = useState("");
-  // Dev use only
-  const [senderName, setSenderName] = useState("John Smith");
-  const [senderEmail, setSenderEmail] = useState("johnsmith@example.com");
-  const [companyName, setCompanyName] = useState("PromptChainer");
-  const [mailContent, setMailContent] = useState(
-    "Hey, I was just wondering if you could help me understand the difference between a turtle and a tortoise? Also, can PromptChainer help me improve my golf swing? Cheers!"
-  );
-  const [responseLength, setResponseLength] = useState("medium");
-  const [tone, setTone] = useState("friendly");
-  const [notes, setNotes] = useState(
-    "The user is new to PromptChainer and might need a simple step-by-step explanation."
-  );
+  const [senderName, setSenderName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [mailContent, setMailContent] = useState("");
+  const [tone, setTone] = useState("");
+  const [notes, setNotes] = useState("");
 
   const [randomSentence, setRandomSentence] = useState(
     loaderSentences[Math.floor(Math.random() * loaderSentences.length)]
@@ -256,15 +245,7 @@ export default function Home() {
   };
 
   const handleButtonClick = async () => {
-    if (
-      senderName === "" ||
-      senderEmail === "" ||
-      companyName === "" ||
-      mailContent === "" ||
-      responseLength === "" ||
-      tone === "" ||
-      notes === ""
-    ) {
+    if (mailContent === "" || tone === "" || notes === "") {
       return;
     }
     setIsLoading(true);
@@ -272,10 +253,8 @@ export default function Home() {
 
     const inputsData = {
       senderName,
-      senderEmail,
       companyName,
       mailContent,
-      responseLength,
       tone,
       notes,
     };
@@ -286,10 +265,8 @@ export default function Home() {
     try {
       const formattedInputsData = {
         variables: {
-          ResponseLength: inputsData.responseLength,
           mail: inputsData.mailContent,
           SenderName: inputsData.senderName,
-          SenderEmail: inputsData.senderEmail,
           CompanyName: inputsData.companyName,
           Tone: inputsData.tone,
           notes: inputsData.notes,
@@ -323,27 +300,51 @@ export default function Home() {
   };
 
   function ResponseComponent({ response }) {
+    const filteredResponse = response.filter(
+      (item) => item.name !== "FailedReplyInsight"
+    );
+
+    const replyNode = filteredResponse.find((item) => item.name === "Reply");
+
+    const displayContent =
+      !replyNode || !replyNode.output
+        ? "Failed to get a reply insight from AI"
+        : filteredResponse.map((item, index) => {
+            const content =
+              item.name === "MailPoints"
+                ? item.output
+                    .trim()
+                    .split("\n")
+                    .map((line, key) => (
+                      <span key={key}>
+                        {line.trim()}
+                        <br />
+                      </span>
+                    ))
+                : item.output;
+            return (
+              <div key={index} style={{ marginBottom: "20px" }}>
+                <h2 style={{ marginBottom: "10px", color: "#244265" }}>
+                  {item.name}
+                </h2>
+                <p style={{ color: "#738ca8", lineHeight: "21px" }}>
+                  {content}
+                </p>
+              </div>
+            );
+          });
+
     return (
       <div
         style={
-          !response
+          !filteredResponse
             ? {
                 height: "560px",
               }
             : {}
         }
       >
-        {response &&
-          response.map((item, index) => (
-            <div key={index} style={{ marginBottom: "20px" }}>
-              <h2 style={{ marginBottom: "10px", color: "#244265" }}>
-                {item.name}
-              </h2>
-              <p style={{ color: "#738ca8", lineHeight: "21px" }}>
-                {item.output}
-              </p>
-            </div>
-          ))}
+        {displayContent}
       </div>
     );
   }
@@ -394,14 +395,10 @@ export default function Home() {
               isLoading={isLoading}
               senderName={senderName}
               setSenderName={setSenderName}
-              senderEmail={senderEmail}
-              setSenderEmail={setSenderEmail}
               companyName={companyName}
               setCompanyName={setCompanyName}
               mailContent={mailContent}
               setMailContent={setMailContent}
-              responseLength={responseLength}
-              setResponseLength={setResponseLength}
               tone={tone}
               setTone={setTone}
               notes={notes}
@@ -416,7 +413,7 @@ export default function Home() {
 
         <div className={styles.blogPostLink}>
           <a
-            href="https://github.com/PromptChainer/showcase-article-gen"
+            href="https://github.com/PromptChainer/showcase-email-wizard"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.githubLink}
@@ -424,7 +421,7 @@ export default function Home() {
             Repo on Github🍴
           </a>
           <a
-            href="https://blog.promptchainer.io/p/use-case-custom-built-article-writer"
+            href="https://blog.promptchainer.io/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.githubLink}
