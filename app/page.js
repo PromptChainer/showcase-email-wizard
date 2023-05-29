@@ -91,13 +91,13 @@ function Inputs({
                 placeholder="Add Sender name"
                 value={senderName}
                 onChange={onChange(setSenderName)}
-                label="Sender name"
+                label="(optional) Who sent you the mail?"
               />
               <Input
                 placeholder="Add Company name"
                 value={companyName}
                 onChange={onChange(setCompanyName)}
-                label="Company name"
+                label="(optional) Your comapny's name"
               />
             </div>
 
@@ -105,13 +105,13 @@ function Inputs({
               placeholder="Mail content"
               value={mailContent}
               onChange={onChange(setMailContent)}
-              label="Main content"
+              label="Main content *"
             />
 
             <div
               className={`${styles.inputholder} ${styles.inputholderbottom}`}
             >
-              <label for="tone">Tone</label>
+              <label for="tone ">Tone *</label>
               <select
                 id="tone"
                 name="tone"
@@ -139,7 +139,7 @@ function Inputs({
               placeholder="Anything you'd like the AI overlord to focus on?"
               value={notes}
               onChange={onChange(setNotes)}
-              label="Notes"
+              label="Notes *"
               rows={2}
             />
           </div>
