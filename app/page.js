@@ -136,7 +136,7 @@ function Inputs({
             </div>
 
             <Textarea
-              placeholder="Anything you'd like the sexy AI to focus on?"
+              placeholder="Anything you'd like the overlord AI to focus on?"
               value={notes}
               onChange={onChange(setNotes)}
               label="Notes"
@@ -234,6 +234,17 @@ export default function Home() {
   const [tone, setTone] = useState("");
   const [notes, setNotes] = useState("");
 
+    // // Dev use only
+    // const [senderName, setSenderName] = useState("John Smith");
+    // const [companyName, setCompanyName] = useState("PromptChainer");
+    // const [mailContent, setMailContent] = useState(
+    //   "Hey, I was just wondering if you could help me understand the difference between a turtle and a tortoise? Also, can PromptChainer help me improve my golf swing? Cheers!"
+    // );
+    // const [tone, setTone] = useState("Friendly");
+    // const [notes, setNotes] = useState(
+    //   "The user is new to PromptChainer and might need a simple step-by-step explanation."
+    // );
+
   const [randomSentence, setRandomSentence] = useState(
     loaderSentences[Math.floor(Math.random() * loaderSentences.length)]
   );
@@ -300,6 +311,14 @@ export default function Home() {
   };
 
   function ResponseComponent({ response }) {
+    if (!response) {
+      return (
+          <div style={{ color: "black" }}>
+              Whatchuwant? No inputs but you expect response. That&apos;s not how life works.
+          </div>
+      );
+  }
+
     const filteredResponse = response.filter(
       (item) => item.name !== "FailedReplyInsight"
     );
