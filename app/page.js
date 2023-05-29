@@ -136,7 +136,7 @@ function Inputs({
             </div>
 
             <Textarea
-              placeholder="Anything you'd like the overlord AI to focus on?"
+              placeholder="Anything you'd like the AI overlord to focus on?"
               value={notes}
               onChange={onChange(setNotes)}
               label="Notes"
