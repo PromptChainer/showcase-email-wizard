@@ -229,22 +229,22 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingEffect, setIsLoadingEffect] = useState(true);
 
-  // const [senderName, setSenderName] = useState("");
-  // const [companyName, setCompanyName] = useState("");
-  // const [mailContent, setMailContent] = useState("");
-  // const [tone, setTone] = useState("");
-  // const [notes, setNotes] = useState("");
+  const [senderName, setSenderName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [mailContent, setMailContent] = useState("");
+  const [tone, setTone] = useState("");
+  const [notes, setNotes] = useState("");
 
-  // Dev use only
-  const [senderName, setSenderName] = useState("John Smith");
-  const [companyName, setCompanyName] = useState("PromptChainer");
-  const [mailContent, setMailContent] = useState(
-    "Hey, I was just wondering if you could help me understand the difference between a turtle and a tortoise? Also, can PromptChainer help me improve my golf swing? Cheers!"
-  );
-  const [tone, setTone] = useState("Friendly");
-  const [notes, setNotes] = useState(
-    "The user is new to PromptChainer and might need a simple step-by-step explanation."
-  );
+  // // Dev use only
+  // const [senderName, setSenderName] = useState("John Smith");
+  // const [companyName, setCompanyName] = useState("PromptChainer");
+  // const [mailContent, setMailContent] = useState(
+  //   "Hey, I was just wondering if you could help me understand the difference between a turtle and a tortoise? Also, can PromptChainer help me improve my golf swing? Cheers!"
+  // );
+  // const [tone, setTone] = useState("Friendly");
+  // const [notes, setNotes] = useState(
+  //   "The user is new to PromptChainer and might need a simple step-by-step explanation."
+  // );
 
   const [randomSentence, setRandomSentence] = useState(
     loaderSentences[Math.floor(Math.random() * loaderSentences.length)]
