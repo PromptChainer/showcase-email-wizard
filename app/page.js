@@ -108,9 +108,7 @@ function Inputs({
               label="Main content *"
             />
 
-            <div
-              className={`${styles.inputholder} ${styles.inputholderbottom}`}
-            >
+            <div className={`${styles.inputholderbottom}`}>
               <label for="tone ">Tone *</label>
               <div className={styles.selectHolder}>
                 <select

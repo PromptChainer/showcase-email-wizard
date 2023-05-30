@@ -81,9 +81,9 @@
 }
 
 .inputholderbottom {
-  margin-bottom: unset;
+  margin-bottom: 35px;
   border: unset;
-  grid-template-columns: 1fr 1fr;
+  max-width: 350px;
 }
 
 .button {
@@ -217,6 +217,7 @@
   height: 3em;
   border-radius: 5px;
   overflow: hidden;
+  margin-top: 5px;
 }
 /* Arrow */
 .selectHolder::after {
@@ -225,6 +226,7 @@
   top: 0;
   right: 0;
   padding: 1em;
+  color: #244265;
   background-color: #eef3f9;
   transition: 0.25s all ease;
   pointer-events: none;
