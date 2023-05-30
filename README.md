@@ -74,8 +74,11 @@ After filling in the desired fields, click on the 'Generate' button and the marv
 
 ## 🔖 Components
 
-The React components written:
 - **Textarea**: This is a dynamic textarea component. It resizes based on input, handles placeholder, value, onChange events, and provides optional rows and columns properties.
+- **Input**: This is a reusable React component that is used to create an input field for users to enter data.
+- **Loader**: This displays a loading animation while waiting for API call.
+- **Output**: This is responsible for displaying the response from the API call. It takes the response data from the API. This data is then mapped to different sections, each displaying an aspect of the response. Each item in the response data includes a name and an output. The name is displayed as the title of the section and the output as the content.
+For example, the sections might be: mail content, sentiment analysis, key points, and suggested reply.
 
 ## 💼 Contributing
 

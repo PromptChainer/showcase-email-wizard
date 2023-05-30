@@ -442,7 +442,7 @@ export default function Home() {
             Repo on Github🍴
           </a>
           <a
-            href="https://blog.promptchainer.io/"
+            href="https://blog.promptchainer.io/p/use-case-build-a-unique-email-reply/"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.githubLink}
