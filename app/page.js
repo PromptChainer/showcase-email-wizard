@@ -384,9 +384,20 @@ export default function Home() {
         }
       >
         <div className={styles.nav}>
-          <h1>
-            Email<span>Wizard</span>
-          </h1>
+          <div className={styles.logo}>
+            <h1>
+              Email<span>Wizard</span>
+            </h1>
+            <Link
+              className={styles.mobilePowered}
+              target="_blank"
+              href="https://promptchainer.io/"
+            >
+              <div className={styles.poweredBy}>
+                <p>Powered by:</p> <Image alt="logo" src={logo} height={20} />
+              </div>
+            </Link>
+          </div>
 
           <div className={styles.tabs}>
             <p
@@ -403,11 +414,15 @@ export default function Home() {
             </p>
           </div>
 
-          <Link target="_blank" href="https://promptchainer.io/">
+          {/* <Link
+            className={styles.desktopPowered}
+            target="_blank"
+            href="https://promptchainer.io/"
+          >
             <div className={styles.poweredBy}>
               <p>Powered by:</p> <Image alt="logo" src={logo} height={20} />
             </div>
-          </Link>
+          </Link> */}
         </div>
         <div className={styles.content}>
           {activeTab === 0 ? (
