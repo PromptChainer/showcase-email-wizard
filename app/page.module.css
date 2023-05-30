@@ -73,7 +73,7 @@
 
 .inputholder {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
   padding-bottom: 35px;
   margin-bottom: 35px;
@@ -84,6 +84,10 @@
   margin-bottom: 35px;
   border: unset;
   max-width: 350px;
+}
+
+.inputholderbottom label {
+  color: #1d2134;
 }
 
 .button {
@@ -218,6 +222,7 @@
   border-radius: 5px;
   overflow: hidden;
   margin-top: 5px;
+  border: 1px solid #cbdcef;
 }
 /* Arrow */
 .selectHolder::after {
@@ -234,4 +239,38 @@
 /* Transition */
 .selectHolder:hover::after {
   color: #fc884b;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    height: unset;
+  }
+
+  .inputholder {
+    grid-template-columns: 1fr;
+  }
+
+  .inputholderbottom {
+    max-width: 100%;
+  }
+
+  .tabs p {
+    padding: 20px 10px;
+  }
+
+  .nav {
+    padding: 0 15px;
+    flex-direction: column;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .content {
+    padding: 15px;
+  }
 }
