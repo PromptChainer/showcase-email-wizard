@@ -1,7 +1,8 @@
 .main {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  overflow: scroll;
   padding: 10px;
   height: 100vh;
   width: 100vw;
