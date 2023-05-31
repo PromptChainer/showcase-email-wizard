@@ -97,7 +97,7 @@ function Inputs({
                 placeholder="Add Company name"
                 value={companyName}
                 onChange={onChange(setCompanyName)}
-                label="(optional) Your comapny's name"
+                label="(optional) Your company's name"
               />
             </div>
 
