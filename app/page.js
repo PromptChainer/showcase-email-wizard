@@ -275,7 +275,7 @@ export default function Home() {
       };
 
       const response = await fetch(
-        "https://prod.api.promptchainer.io/api/flows/run/clhez0wo90005s10glie7tadf",
+        "https://api.promptchainer.io/api/flows/run/clhez0wo90005s10glie7tadf",
         {
           method: "POST",
           headers: {
